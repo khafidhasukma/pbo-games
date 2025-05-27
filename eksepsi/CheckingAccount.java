@@ -35,4 +35,31 @@ public class CheckingAccount {
 	{
 		return rekening;
 	}
+
+	public void cetakPecahanUang(double jumlah) {
+    int sisa = (int) jumlah;
+    int seratus = sisa / 100000;
+    sisa %= 100000;
+
+    int limaPuluh = sisa / 50000;
+    sisa %= 50000;
+
+    int duaPuluh = sisa / 20000;
+    sisa %= 20000;
+
+    System.out.println("Uang Anda terdiri dari:");
+    if (seratus > 0) System.out.println(seratus + " lembar Rp 100.000");
+    if (limaPuluh > 0) System.out.println(limaPuluh + " lembar Rp 50.000");
+    if (duaPuluh > 0) System.out.println(duaPuluh + " lembar Rp 20.000");
+	}
+
+	public void prosesPenarikan(double jumlah) {
+    try {
+        tarikUang(jumlah);
+        System.out.println("Penarikan berhasil.");
+        cetakPecahanUang(jumlah);
+    } catch (InsufficientFundsException e) {
+        System.out.println("Maaf saldo yang akan Anda ambil kurang Rp " + e.getAmount() + " dari total permintaan Anda");
+    }
+	}
 }

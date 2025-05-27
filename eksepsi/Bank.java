@@ -41,12 +41,19 @@ public class Bank {
                     System.out.print("Masukkan jumlah yang akan ditarik: ");
                     try {
                         double tarik = sc.nextDouble();
-                        try {
-                            ca.tarikUang(tarik);
-                            System.out.println("Penarikan berhasil.");
-                        } catch (InsufficientFundsException e) {
-                            System.out.println("Maaf saldo yang akan Anda ambil kurang Rp " + e.getAmount() + " dari total permintaan Anda");
+
+                        if (tarik < 20000) {
+                            System.out.println("Penarikan minimal adalah Rp 20.000!");
+                            break;
                         }
+
+                        if (tarik % 10000 != 0) {
+                            System.out.println("Penarikan harus kelipatan Rp 10.000!");
+                            break;
+                        }
+
+                        ca.prosesPenarikan(tarik);
+
                     } catch (InputMismatchException e) {
                         System.out.println("Input harus berupa angka!");
                         sc.nextLine();
